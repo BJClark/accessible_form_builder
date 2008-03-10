@@ -11,7 +11,7 @@ module AccessibleForm
         def #{selector}(field, options = {})
           field = field.to_s
           label_text, required, note = extract_paf_options(field, options)
-          generic_field(field, super, label_text, options)
+          generic_field(field, super, label_text, {:required => required, :note => note})
         end
         END_SRC
         class_eval src, __FILE__, __LINE__
@@ -22,7 +22,7 @@ module AccessibleForm
        def #{selector}(field, options = {})
          field = field.to_s
          label_text, required, note = extract_paf_options(field, options)
-         generic_field(field, super, label_text, options)
+         generic_field(field, super, label_text, {:required => required, :note => note})
        end
        END_SRC
        class_eval src, __FILE__, __LINE__
@@ -35,7 +35,7 @@ module AccessibleForm
      def file_column_field(field, options = {})
        field = field.to_s
        label_text, required, note = extract_paf_options(field, options)
-       generic_field(field, @template.file_column_field(@object_name, field, options), label_text, options)
+       generic_field(field, @template.file_column_field(@object_name, field, options), label_text, {:required => required, :note => note})
      end
 
      def separator(new_section_name, options = {})
@@ -75,9 +75,9 @@ module AccessibleForm
      end
 
      def extract_paf_options field, options
-       label_text = options[:label] || field.to_s.humanize
-       required = options[:required] || false
-       note = options[:note] || false
+       label_text = options.delete(:label) || field.to_s.humanize
+       required = options.delete(:required) || false
+       note = options.delete(:note) || false
        [label_text, required, note]
      end
    end
@@ -85,9 +85,9 @@ module AccessibleForm
    def a_form_for(object_name, *args, &proc)
      options = args.last.is_a?(Hash) ? args.last : {}
      if options[:html].nil? then
-       options[:html] = { :class => "cmxform" }
+       options[:html] = { :class => "aFrm" }
      else
-       options[:html][:class] = (options[:html][:class].nil?) ? "cmxform" : "#{options[:html][:class]} cmxform"
+       options[:html][:class] = (options[:html][:class].nil?) ? "aFrm" : "#{options[:html][:class]} aFrm"
      end
      legend = options.delete :legend
      if legend.blank?
@@ -109,7 +109,7 @@ module AccessibleForm
      if options[:html].nil? then
        options[:html] = { :class => "aFrm" }
      else
-       options[:html][:class] = (options[:html][:class].nil?) ? "aFrm" : "#{options[:html][:class]} cmxform"
+       options[:html][:class] = (options[:html][:class].nil?) ? "aFrm" : "#{options[:html][:class]} aFrm"
      end
      legend = options.delete :legend
      if legend.blank?
