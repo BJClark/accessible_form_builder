@@ -31,6 +31,10 @@ module AccessibleForm
     def submit(text, options = {})
       generic_field(nil, @template.submit_tag(text, options), nil, options)
     end
+    
+    def hidden_field(*args)
+      super
+    end
 
     def file_column_field(field, options = {})
       field = field.to_s
