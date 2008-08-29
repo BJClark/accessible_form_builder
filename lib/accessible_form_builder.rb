@@ -45,10 +45,8 @@ module AccessibleForm
     def separator(new_section_name, options = {})
       return options[:html] unless options[:html].blank?
       <<-HTML
-    </ol>
   </fieldset>
   <fieldset><legend>#{new_section_name}</legend>
-    <ol>
       HTML
     end
 

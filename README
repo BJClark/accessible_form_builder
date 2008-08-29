@@ -1,11 +1,12 @@
-AccesibleFormBuilder
+GoodAccesibleFormBuilder
 ===================
 
+This plugin is based upon accessible_form_builder from http://github.com/shift/accessible_form_builder/tree/master
 This plugin is based upon pretty_accessible_form from http://machinesmonstersandmadness.com/svn/plugins/trunk/pretty_accessible_form
 
 == Installation
 
-git clone git://github.com/shift/accessible_form_builder.git vendor/plugins/accessible_form_builder
+script/plugin install git://github.com/RobotDeathSquad/accessible_form_builder.git
 
 == Usage
 
@@ -24,6 +25,12 @@ Here's an example usage:
   <% end %>
 
 == Credits
+
+CSS is adapted from Khoi Vinh's Good Forms.
+http://www.subtraction.com/pics/0508/050822/
+
+Accessible Form Builder is by "Shift"
+http://rwvhp.com/
 
 Original idea from A List Aparts "Prettier Accessible Forms"
 http://alistapart.com/articles/prettyaccessibleforms

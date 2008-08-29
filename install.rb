@@ -7,7 +7,7 @@ end
 
 directory = File.dirname(__FILE__)
 
-%w(javascripts).each {  |d|
+%w(javascripts stylesheets).each {  |d|
   path = "/public/#{d}"
   copy_files(path,path,directory)
 }
