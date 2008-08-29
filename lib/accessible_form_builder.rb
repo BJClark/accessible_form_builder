@@ -56,12 +56,9 @@ module AccessibleForm
       note = options[:note] ? @template.content_tag('em', " #{options[:note]}") : ''
       unless label_text.blank?
         if options[:label] == :after
-          li(field + label(label_text, "#{@object_name}_#{fieldname}", true) + required + note)
+          field + label(label_text, "#{@object_name}_#{fieldname}", nil, true, required, note)
         else
-          li(
-              label(label_text, "#{@object_name}_#{fieldname}") +
-              field + required + note
-            )
+          label(label_text, "#{@object_name}_#{fieldname}", field, false, required, note)
         end
       else # No label
         li(field + required + note)
@@ -72,8 +69,8 @@ module AccessibleForm
       @template.content_tag 'li', content, options
     end
 
-    def label text, for_field, after = false
-      @template.content_tag 'label', "#{text}#{after ? '' : ':'}", :for => for_field
+    def label text, for_field, field, after = false, options = {}
+      @template.content_tag 'label', "#{text}#{after ? '' : ':'}", :for => for_field, options
     end
 
     def extract_paf_options field, options
@@ -93,11 +90,11 @@ module AccessibleForm
     end
     legend = options.delete :legend
     if legend.blank?
-      prefix = options[:prefix].blank? ? "<fieldset><ol>" : options[:prefix]
-      postfix = options[:postfix].blank? ? "</fieldset></ol>" : options[:postfix]
+      prefix = options[:prefix].blank? ? "<fieldset>" : options[:prefix]
+      postfix = options[:postfix].blank? ? "</fieldset>" : options[:postfix]
     else
-      prefix = options[:prefix].blank? ? "<fieldset><legend>#{legend}</legend><ol>" : options[:prefix]
-      postfix = options[:postfix].blank? ? '</ol></fieldset>' : options[:postfix]
+      prefix = options[:prefix].blank? ? "<fieldset><legend>#{legend}</legend>" : options[:prefix]
+      postfix = options[:postfix].blank? ? '</fieldset>' : options[:postfix]
     end
 
     custom_form_for(
@@ -115,11 +112,11 @@ module AccessibleForm
     end
     legend = options.delete :legend
     if legend.blank?
-      prefix = options[:prefix].blank? ? "<fieldset><ol>" : options[:prefix]
-      postfix = options[:postfix].blank? ? "</ol></fieldset>" : options[:postfix]
+      prefix = options[:prefix].blank? ? "<fieldset>" : options[:prefix]
+      postfix = options[:postfix].blank? ? "</fieldset>" : options[:postfix]
     else
-      prefix = options[:prefix].blank? ? "<fieldset><legend>#{legend}</legend><ol>" : options[:prefix]
-      postfix = options[:postfix].blank? ? '</ol></fieldset>' : options[:postfix]
+      prefix = options[:prefix].blank? ? "<fieldset><legend>#{legend}</legend>" : options[:prefix]
+      postfix = options[:postfix].blank? ? '</fieldset>' : options[:postfix]
     end
     custom_form_for(PAFormBuilder, prefix, postfix, form_remote_tag(options), object_name, *args, &proc)
   end
