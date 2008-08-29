@@ -1,38 +1,4 @@
 /* basic styles */
-
-* {
-	margin: 0;
-	padding: 0;
-}
-
-body {
-	font: 12px/14px Arial, Helvetica, sans-serif;
-	color: #000;
-	width: 360px;
-	margin: 20px auto;
-	text-align: left;
-}
-
-h1 {
-	font: bold 20px/21px Helvetica, Arial, sans-serif;
-	margin: 10px 0px;
-}
-
-p {
-	width: 360px;
-	margin: 0px 0px 20px 0px;
-}
-
-ul {
-	margin: 5px 0px 15px 0px;
-	padding: 0px;
-}
-
-li {
-	margin-left: 20px;
-}
-
-
 /* form styles */
 
 form {
