@@ -5,6 +5,7 @@ module GoodForm
   GROUP_WRAPPER_ELEMENT = 'fieldset' # ul, ol
   FIELD_WRAPPER_ELEMENT = 'label' # li
   AF_FORM_CLASS = 'af_form'
+  AFTER_LABEL_CONTENT = ":"
 
   class GoodFormBuilder < ActionView::Helpers::FormBuilder
 
@@ -21,6 +22,7 @@ module GoodForm
     MANUAL_NEW_METHODS = %w(label hidden_field select country_select radio_button check_box)
     EXCLUDED_METHODS = %w(form_for fields_for) # see af_form_for, af_fields_for
     AFTER_METHODS = %w(radio_button check_box)
+    NO_LABEL_METHODS = %w(submit)
     
     AUTO_WRAP = ADDITIONAL_HELPER_METHODS + FORM_BUILDER_METHODS - EXCLUDED_METHODS
     BARE_WRAP = AUTO_WRAP + MANUAL_NEW_METHODS
@@ -66,7 +68,7 @@ module GoodForm
 
   def radio_button(field, tag_value, options = {})
     label_text, af_options = extract_af_options(field, reflect_field_type, options)
-    generic_field( field, super, label_text, options.merge(af_options).merge(:field_order => [:field, :label, :required, :note]) )
+    generic_field( field, super, tag_value, options.merge(af_options).merge(:field_order => [:field, :label, :required, :note]) )
   end
 
   def check_box(field, options={}, checked_value="1", unchecked_value="0")
@@ -107,20 +109,19 @@ module GoodForm
     label_text.blank? && (field_order.delete(:label))
     label_contents = label_order.map{ |c| label_components[c] }.join('')
     label_for = "#{@object_name}_#{fieldname}"
-
+    
+    set_css_class = [field_type, structure].compact.join(' ').rstrip
+    
     field_components = {
-      :label => AFTER_METHODS.include?(field_type) ? label(label_contents, label_for) : label_contents + "<br />",
+      :label => AFTER_METHODS.include?(field_type) ? label(label_contents, label_for, :class => set_css_class ) : label_contents + "<br />",
       :field => field,
       :note => note,
       :required => required
     }
 
-    set_css_class = [field_type, structure].compact.join(' ').rstrip
-    # set_css_id = "#{@object_name}_#{fieldname}_set" # not guaranteed unique
-
     content = field_order.map{ |c| field_components[c] }.compact.join('')
     
-    unless AFTER_METHODS.include? field_type
+    unless AFTER_METHODS.include?(field_type) || NO_LABEL_METHODS.include?(field_type)
       @template.content_tag 'label', content, {:for => label_for, :class => set_css_class}
     else
       content
@@ -130,8 +131,8 @@ module GoodForm
   end
 
   # replace this with label_tag helper when dropping support for pre 2.x series
-  def label(text, for_field)
-    @template.content_tag 'label', text, :for => for_field
+  def label(text, for_field, options = {})
+    @template.content_tag 'label', text, {:for => for_field}.merge(options)
   end
 
   # these options must be deleted, so when the wrapped form helpers call super,
@@ -141,7 +142,7 @@ module GoodForm
     required = options.delete(:required) || false
     note = options.delete(:note) || false
     structure = extract_layout_options(options)
-    return label_text, {:required => required, :structure => structure, :note => note, :field_type => field_type}
+    return [label_text, AFTER_LABEL_CONTENT].join, {:required => required, :structure => structure, :note => note, :field_type => field_type}
   end
 
   # need the name of the field type for the helper we're creating

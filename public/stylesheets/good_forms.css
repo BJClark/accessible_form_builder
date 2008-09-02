@@ -1,72 +1,79 @@
+/* @override http://0.0.0.0:3000/stylesheets/good_forms.css */
+
 /* basic styles */
 /* form styles */
 
-form {
-	width: 360px;
+form.af_form {
+	width: 590px;
 	text-align: left;
+	font: 14px/18px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
 }
 
-fieldset {
+.af_form fieldset {
 	margin: 0;
 	border: 0;
 	padding: 0;
+	float: left;
+	clear: left;
 }
 
-legend {
+.af_form legend {
 	display: none;
 }
 
-form h3 {
+.af_form em.note {
+	font-size: 11px;
+	line-height: 15px;
+	color: green;
+}
+
+form.af_form h3 {
 	clear: both;
 	padding: 5px 0px 10px 0px;
 	font-size: 14px;
 }
 
-form label {
+.af_form fieldset.radio_button_set {
+	margin: 10px 0;
+	border: 0;
+	padding: 0;
+	float: left;
+	clear: left;
+}
+.af_form fieldset.radio_button_set legend {
 	display: block;
-	width: 310px;
-	font-size: 12px;
-	line-height: 14px;
-	padding: 0px 0px 12px 0px;
+	font: 14px/18px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	background: none;
+	color: #444444;
+}
+.af_form fieldset.radio_button_set legend:after {
+	content: ": ";
 }
 
-form input {
+form.af_form label {
+	display: block;
+	width: 590px;
+	padding: 0px 0px 12px 0px;
+	color: #444444;
+}
+
+
+form.af_form input[type="text"], form.af_form input[type="password"] {
 	display: block;
 	margin-top: 3px;
+	font: 13px/18px "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+	border: 1px solid grey;
 }
 
-form select {
+form.af_form select {
 	float: left;
 	display: block;
 }
 
-form label.field-first,
-form label.field-address,
-form label.field-city,
-form label.field-email {
+form.af_form label.text_field {
 	clear: left;
 }
 
-
-form label.field-first,
-form label.field-last,
-form label.field-city,
-form label.field-email,
-form label.field-phone {
-	float: left;
-	margin: 0px 10px 0px 0px;
-	width: 150px;
-}
-
-form label.field-first input,
-form label.field-last input,
-form label.field-email input,
-form label.field-city input,
-form label.field-phone input {
-	float: left;
-	width: 150px;
-	padding: 0px;
-}
 
 form label.field-state {
 	float: left;
@@ -79,65 +86,37 @@ form label.field-state select {
 	float: left;
 	margin-top: 3px;
 }
-
-form label.field-zip {
-	float: left;
-	width: 80px;
+form.af_form label.radio_button,
+form.af_form label.check_box {
+	clear: none;
+	margin: 0px 0px 0px 25px;
+	padding: 10px 0px 0px 0px;
 }
 
-form label.field-zip input {
-	float: left;
-	width: 80px;
-}
-
-form label.field-address {
-	float: left;
-	width: 310px;
-	margin: 0px 0px 0px 0px;
-}
-
-form label.field-address input {
-	float: left;
-	width: 310px;
-	padding: 0px;
-}
-
-form input#radiobutton_1,
-form input#radiobutton_2,
-form input#radiobutton_3,
-form input#radiobutton_4 {
+form.af_form input[type="radio"] {
 	clear: left;
 	float: left;
 	padding: 0px;
-	margin: 0px 0px 0px 0px;
+	margin: 13px 0px 0px 0px;
 }
 
-form label.radioitem {
-	clear: none;
-	margin: 0px 0px 0px 25px;
-	padding: 0px 0px 15px 0px;
-}
-
-textarea {
+form.af_form textarea {
 	display: block;
 }
 
-form input#checkbox_1,
-form input#checkbox_2,
-form input#checkbox_3 {
+form.af_form input[type="checkbox"] {
 	clear: both;
 	float: left;
 	padding: 0px;
 	margin: 0px;
 }
 
-form label.field-checkbox {
-	clear: none;
-	margin: 0px 0px 0px 25px;
-	padding: 0px 0px 15px 0px;
+
+form.af_form textarea {
+	margin-top: 3px;
 }
 
-form textarea {
-	margin-top: 3px;
+form.af_form input[type="hidden] {
+	display:none !important;
 }
 
