@@ -19,7 +19,7 @@ module GoodForm
     # what to override / wrap and how
     ADDITIONAL_HELPER_METHODS = %w(date_select datetime_select time_select collection_select time_zone_select)
     FORM_BUILDER_METHODS = ActionView::Helpers::FormHelper.instance_methods
-    MANUAL_NEW_METHODS = %w(label hidden_field select country_select radio_button check_box)
+    MANUAL_NEW_METHODS = %w(label hidden_field select radio_button check_box)
     EXCLUDED_METHODS = %w(form_for fields_for) # see af_form_for, af_fields_for
     AFTER_METHODS = %w(radio_button check_box)
     NO_LABEL_METHODS = %w(submit)
@@ -77,12 +77,6 @@ module GoodForm
   end
 
   def select(field, choices, options = {}, html_options = {})
-    label_text, af_options = extract_af_options(field, reflect_field_type, options)
-    generic_field( field, super, label_text, options.merge(af_options))
-  end
-
-
-  def country_select(field, priority_countries = nil, options = {}, html_options = {})
     label_text, af_options = extract_af_options(field, reflect_field_type, options)
     generic_field( field, super, label_text, options.merge(af_options))
   end
