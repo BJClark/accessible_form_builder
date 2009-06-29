@@ -198,17 +198,17 @@ def af_fields_for(object_name, *args, &proc)
 end
 
 def custom_form_for(builder, fields_pre, fields_post, form_tag, object_name, *args, &proc)
-  concat(form_tag, proc.binding)
+  concat(form_tag)
   custom_fields_for(builder, fields_pre, fields_post, object_name, *args, &proc)
-  concat("</form>", proc.binding)
+  concat("</form>")
 end
 
 def custom_fields_for(builder, fields_pre, fields_post, object_name, *args, &proc)
   raise ArgumentError, "Missing block for form_for/fields_for call." unless block_given?
   options = args.last.is_a?(Hash) ? args.pop : {}
-  concat(fields_pre, proc.binding)
+  concat(fields_pre)
   fields_for(object_name, *(args << options.merge(:builder => builder)), &proc)
-  concat(fields_post, proc.binding)
+  concat(fields_post)
 end
 
 protected
