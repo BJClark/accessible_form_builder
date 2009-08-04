@@ -20,7 +20,7 @@ module GoodForm
     ADDITIONAL_HELPER_METHODS = %w(date_select datetime_select time_select collection_select time_zone_select)
     FORM_BUILDER_METHODS = ActionView::Helpers::FormHelper.instance_methods
     MANUAL_NEW_METHODS = %w(label hidden_field select radio_button check_box)
-    EXCLUDED_METHODS = %w(form_for fields_for) # see af_form_for, af_fields_for
+    EXCLUDED_METHODS = %w(form_for fields_for form_for_with_haml form_for_without_haml) # see af_form_for, af_fields_for
     AFTER_METHODS = %w(radio_button check_box)
     NO_LABEL_METHODS = %w(submit)
     
